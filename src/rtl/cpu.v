@@ -4,6 +4,7 @@ module cpu
  input         clk,
  // instruction memory
  output [31:0] im_addr,
+ input         im_valid,
  input [31:0]  im_data,
  // data memory
  output [31:0] mem_write_data,
@@ -35,6 +36,7 @@ module cpu
   wire [31:0]           instruction_f;          // From fetch of fetch.v
   wire [31:0]           mem_data_e;             // From execute of execute.v
   wire [31:0]           mem_read_data_m;        // From memory of memory.v
+  wire                  mem_valid_f;            // From fetch of fetch.v
   wire                  mem_valid_m;            // From memory of memory.v
   wire                  mem_write_d;            // From decode of decode.v
   wire                  mem_write_e;            // From execute of execute.v
@@ -75,9 +77,11 @@ module cpu
               .im_addr                  (im_addr),
               .instruction_f            (instruction_f[31:0]),
               .pc_f                     (pc_f[31:0]),
+              .mem_valid_f              (mem_valid_f),
               // Inputs
               .rst_n                    (rst_n),
               .clk                      (clk),
+              .im_valid                 (im_valid),
               .im_data                  (im_data),
               .branch_d                 (branch_d),
               .branch_next_addr_d       (branch_next_addr_d[31:0]),
@@ -230,6 +234,7 @@ module cpu
                 .rd_e                   (rd_e[4:0]),
                 .rs1_d                  (rs1_d[4:0]),
                 .rs2_d                  (rs2_d[4:0]),
+                .mem_valid_f            (mem_valid_f),
                 .mem_valid_m            (mem_valid_m),
                 .branch                 (branch),
                 .branch_d               (branch_d),

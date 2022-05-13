@@ -21,6 +21,7 @@ module hazard
  input [4:0]  rd_e,
  input [4:0]  rs1_d,
  input [4:0]  rs2_d,
+ input        mem_valid_f,
  input        mem_valid_m,
  output       stall_f,
  output       stall_d,
@@ -76,7 +77,7 @@ module hazard
   assign memory_read_stall = (rd_write_src_m == `RDSRC_MEM) && !mem_valid_m;
       
   assign stall_d = lw_stall || branch_stall || memory_read_stall;
-  assign stall_f = lw_stall || branch_stall || memory_read_stall;
+  assign stall_f = lw_stall || branch_stall || memory_read_stall || !mem_valid_f;
   assign stall_e = memory_read_stall;
   assign stall_m = memory_read_stall;
               

@@ -7,6 +7,7 @@ module fetch
  input         clk,
  // memory interface:
  output [31:0] im_addr,
+ input         im_valid,
  input [31:0]  im_data,
  // pipeline interface
  input         branch_d,
@@ -15,7 +16,8 @@ module fetch
  input [31:0]  pc_next_addr_m,
  input         stall_f,
  output [31:0] instruction_f,
- output [31:0] pc_f
+ output [31:0] pc_f,
+ output        mem_valid_f
  );
 
   /*AUTOREG*/
@@ -27,7 +29,8 @@ module fetch
   
   assign im_addr = pc_f >> 2;
   assign instruction_f = im_data;
-  
+  assign mem_valid_f = im_valid;
+    
   always @ (*) begin
     if (pc_write_m)
       pc_next = pc_next_addr_m;
