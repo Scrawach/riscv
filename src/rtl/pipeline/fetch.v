@@ -2,6 +2,7 @@
  FETCH (_f) pipeline part
  */
 module fetch
+#( parameter BOOT_ADDRESS = 32'h00_00_00_00)
 (
  input         rst_n,
  input         clk,
@@ -44,7 +45,7 @@ module fetch
   
   always @ (posedge clk or negedge rst_n) begin
     if (!rst_n)
-      pc_f <= 0;
+      pc_f <= BOOT_ADDRESS;
     else
       pc_f <= pc_next;
   end
