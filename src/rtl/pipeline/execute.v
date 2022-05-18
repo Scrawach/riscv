@@ -113,7 +113,7 @@ module execute
     endcase
   end
 
-  assign mem_data_e = rs1_data;
+  assign mem_data_e = rs2_data;
   
   // PIPELINE:
   always @ (posedge clk or negedge rst_n) begin
