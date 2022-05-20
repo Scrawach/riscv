@@ -35,7 +35,7 @@ module fetch
   always @ (*) begin
     if (stall_f)
       pc_next = pc_f;
-    if (pc_write_m)
+    else if (pc_write_m)
       pc_next = pc_next_addr_m;
     else if (branch_d)
       pc_next = branch_next_addr_d;
