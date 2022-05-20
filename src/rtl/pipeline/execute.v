@@ -78,7 +78,7 @@ module execute
            .result                      (alu_res_e),             // Templated
            // Inputs
            .src_a                       (src_a),
-           .src_b                       (src_a),              // Templated
+           .src_b                       (src_b),              // Templated
            .op_code                     (alu_op_e));              // Templated
   
   always @(*) begin
