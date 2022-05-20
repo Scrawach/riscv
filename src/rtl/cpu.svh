@@ -4,14 +4,18 @@
 `define _CPU_COMMANDS
 
 //ALU commands
-`define ALUOP_ADD     3'b000
-`define ALUOP_OR      3'b001
-`define ALUOP_SRL     3'b010
-`define ALUOP_SLL     3'b011
-`define ALUOP_SLTU    3'b100
-`define ALUOP_SUB     3'b101
-`define ALUOP_SRC1    3'b111
-`define ALUOP_SRA     3'b110
+`define ALUOP_ADD    4'b0000
+`define ALUOP_SUB    4'b1000
+`define ALUOP_SLT    4'b0010
+`define ALUOP_SLTU   4'b0011
+`define ALUOP_AND    4'b0111
+`define ALUOP_OR     4'b0110
+`define ALUOP_XOR    4'b0100
+`define ALUOP_SLL    4'b0001
+`define ALUOP_SRL    4'b0101
+`define ALUOP_SRA    4'b1101
+
+`define ALUOP_SRC1   4'b1111
 
 // MUXes 
 `define ALUSRC1_RS2  2'b00
@@ -52,7 +56,7 @@
 
 `define RVOP_ADDI   7'b0010011
 `define RVOP_SLTI   7'b0010011
-`define RVOP SLTIU  7'b0010011
+`define RVOP_SLTIU  7'b0010011
 `define RVOP_XORI   7'b0010011
 `define RVOP_ORI    7'b0010011
 `define RVOP_ANDI   7'b0010011
@@ -87,7 +91,7 @@
 
 `define RVF3_ADDI   3'b000
 `define RVF3_SLTI   3'b010
-`define RVF3 SLTIU  3'b011
+`define RVF3_SLTIU  3'b011
 `define RVF3_XORI   3'b100
 `define RVF3_ORI    3'b110
 `define RVF3_ANDI   3'b111
