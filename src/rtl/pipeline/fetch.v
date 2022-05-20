@@ -33,14 +33,14 @@ module fetch
   assign mem_valid_f = im_valid;
     
   always @ (*) begin
+    if (stall_f)
+      pc_next = pc_f;
     if (pc_write_m)
       pc_next = pc_next_addr_m;
     else if (branch_d)
       pc_next = branch_next_addr_d;
-    else if (!stall_f)
-      pc_next = pc_f + 3'd4;
     else
-      pc_next = pc_f;
+      pc_next = pc_f + 3'd4;
   end
   
   always @ (posedge clk or negedge rst_n) begin
