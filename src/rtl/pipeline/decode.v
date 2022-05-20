@@ -23,7 +23,7 @@ module decode
  output        rd_write_d,
  output [1:0]  rd_write_src_d,
  output        mem_write_d,
- output [2:0]  alu_op_d,
+ output [3:0]  alu_op_d,
  output [1:0]  alu_src1_d,
  output        alu_src2_d,
  output [4:0]  rd_d,
@@ -88,7 +88,7 @@ module decode
          .rd_write                      (rd_write_d),            // Templated
          .rd_write_src                  (rd_write_src_d[1:0]),   // Templated
          .mem_write                     (mem_write_d),           // Templated
-         .alu_op                        (alu_op_d[2:0]),         // Templated
+         .alu_op                        (alu_op_d[3:0]),         // Templated
          .alu_src1                      (alu_src1_d[1:0]),       // Templated
          .alu_src2                      (alu_src2_d),            // Templated
          .fast_jump                     (fast_jump),             // Templated

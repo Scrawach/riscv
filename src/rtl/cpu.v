@@ -16,7 +16,7 @@ module cpu
 
   /*AUTOWIRE*/
   // Beginning of automatic wires (for undeclared instantiated-module outputs)
-  wire [2:0]            alu_op_d;               // From decode of decode.v
+  wire [3:0]            alu_op_d;               // From decode of decode.v
   wire [31:0]           alu_res_e;              // From execute of execute.v
   wire [31:0]           alu_res_m;              // From memory of memory.v
   wire [1:0]            alu_src1_d;             // From decode of decode.v
@@ -97,7 +97,7 @@ module cpu
                 .rd_write_d             (rd_write_d),
                 .rd_write_src_d         (rd_write_src_d[1:0]),
                 .mem_write_d            (mem_write_d),
-                .alu_op_d               (alu_op_d[2:0]),
+                .alu_op_d               (alu_op_d[3:0]),
                 .alu_src1_d             (alu_src1_d[1:0]),
                 .alu_src2_d             (alu_src2_d),
                 .rd_d                   (rd_d[4:0]),
@@ -144,7 +144,7 @@ module cpu
                   .rd_write_d           (rd_write_d),
                   .rd_write_src_d       (rd_write_src_d[1:0]),
                   .mem_write_d          (mem_write_d),
-                  .alu_op_d             (alu_op_d[2:0]),
+                  .alu_op_d             (alu_op_d[3:0]),
                   .alu_src1_d           (alu_src1_d[1:0]),
                   .alu_src2_d           (alu_src2_d),
                   .rd_d                 (rd_d[4:0]),

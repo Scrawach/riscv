@@ -10,7 +10,7 @@ module execute
  input         rd_write_d,
  input [1:0]   rd_write_src_d,
  input         mem_write_d,
- input [2:0]   alu_op_d,
+ input [3:0]   alu_op_d,
  input [1:0]   alu_src1_d,
  input         alu_src2_d,
  input [4:0]   rd_d,
@@ -52,7 +52,7 @@ module execute
   reg                   rd_write_e;
   reg [1:0]             rd_write_src_e;
   reg                   mem_write_e;
-  reg [2:0]             alu_op_e;
+  reg [3:0]             alu_op_e;
   reg [2:0]             alu_src1_e;
   reg                   alu_src2_e;
   reg [4:0]             rd_e;
