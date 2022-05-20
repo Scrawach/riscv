@@ -78,21 +78,21 @@ module execute
            .result                      (alu_res_e),             // Templated
            // Inputs
            .src_a                       (src_a),
-           .src_b                       (rs1_data),              // Templated
+           .src_b                       (src_a),              // Templated
            .op_code                     (alu_op_e));              // Templated
   
   always @(*) begin
-    src_a = rs2_data;
+    src_b = rs2_data;
     case (alu_src1_e)
-      2'b00: src_a = rs2_data;
-      2'b01: src_a = immI_e;
-      2'b10: src_a = immS_e;
-      2'b11: src_a = immU_e;
+      2'b00: src_b = rs2_data;
+      2'b01: src_b = immI_e;
+      2'b10: src_b = immS_e;
+      2'b11: src_b = immU_e;
     endcase
   end
 
   always @(*) begin
-    src_b = alu_src2_e ? pc_e : rs1_data;
+    src_a = alu_src2_e ? pc_e : rs1_data;
   end
   
   always @(*) begin
