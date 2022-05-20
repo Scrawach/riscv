@@ -24,7 +24,7 @@ module file
       for (int i = 0; i < 32; i++) begin
         rf[i] <= 0;
       end
-    end else if ( rd_write && rd_addr != 0) begin
+    end else if ( rd_write && rd_addr != 0 ) begin
         rf[rd_addr] <= rd_data;
     end
   end

@@ -2,7 +2,7 @@
  FETCH (_f) pipeline part
  */
 module fetch
-#( parameter BOOT_ADDRESS = 32'h00_00_00_00)
+#( parameter BOOT_ADDRESS = 32'h00_00_00_00 )
 (
  input         rst_n,
  input         clk,
