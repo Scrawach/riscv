@@ -47,13 +47,13 @@ module cu
 
     casez ( { func7, func3, cmd_op } )
       // U-Type:
-      { `RVF7_ANY,  `RVF3_ANY,  `RVOP_LUI  } : begin rd_write = 1'b1; alu_op = `ALUOP_SRC1; alu_src1 = 2'b11;                                                           end
+      { `RVF7_ANY,  `RVF3_ANY,  `RVOP_LUI  } : begin rd_write = 1'b1; alu_op = `ALUOP_SRC1; alu_src1 = `ALUSRC1_IMMU; end
       { `RVF7_ANY,  `RVF3_ANY,  `RVOP_AUIPC} : begin rd_write = 1'b1; alu_op = `ALUOP_ADD; alu_src1 = `ALUSRC1_IMMU; rd_write_src = `RDSRC_ALU; alu_src2 = `ALUSRC2_PC; end
       
       // J-Type:
-      { `RVF7_ANY,  `RVF3_ANY,  `RVOP_JAL  } : begin rd_write = 1'b1; alu_op = `ALUOP_SRC1; fast_jump = 1'b1; rd_write_src = `RDSRC_PC;                                 end
+      { `RVF7_ANY,  `RVF3_ANY,  `RVOP_JAL  } : begin rd_write = 1'b1; alu_op = `ALUOP_SRC1; fast_jump = 1'b1; rd_write_src = `RDSRC_PC;  end
       // I-Type:
-      { `RVF7_ANY,  `RVF3_JALR, `RVOP_JALR } : begin rd_write = 1'b1; alu_op = `ALUOP_ADD; alu_src1 = `ALUSRC1_IMMI; pc_write = 1'b1; rd_write_src = `RDSRC_PC;         end
+      { `RVF7_ANY,  `RVF3_JALR, `RVOP_JALR } : begin rd_write = 1'b1; alu_op = `ALUOP_ADD; alu_src1 = `ALUSRC1_IMMI; pc_write = 1'b1; rd_write_src = `RDSRC_PC; end
 
       // B-Type:
       { `RVF7_ANY,  `RVF3_BEQ,   `RVOP_BEQ  } : begin branch = 1'b1; branch_condition = `BRANCH_EQ;           end
@@ -64,7 +64,7 @@ module cu
       { `RVF7_ANY,  `RVF3_BGEU,  `RVOP_BGEU } : begin branch = 1'b1; branch_condition = `BRANCH_GREATER;      end
 
       // I-Type:
-      { `RVF7_ANY,  `RVF3_LW,  `RVOP_LW } : begin rd_write = 1'b1; alu_op = `ALUOP_ADD; alu_src1 = 2'b1; rd_write_src = `RDSRC_MEM; end
+      { `RVF7_ANY,  `RVF3_LW,  `RVOP_LW } : begin rd_write = 1'b1; alu_op = `ALUOP_ADD; alu_src1 = `ALUSRC1_IMMI; rd_write_src = `RDSRC_MEM; end
       // S-Type:
       { `RVF7_ANY,  `RVF3_SW,  `RVOP_SW } : begin alu_src1 = `ALUSRC1_IMMS; mem_write = 1'b1; end
 
