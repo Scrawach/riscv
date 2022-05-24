@@ -11,21 +11,21 @@ void main(void)
 
 unsigned int isqrt(unsigned int number)
 {
-    register unsigned int mask, answer, temp, input;
-    input = number;
+    register unsigned int regNumber, mask, answer, temp;
+    regNumber = number;
     mask = 1 << 30;
     answer = 0;
     
-    while (mask > input)
+    while (mask > regNumber)
         mask >>= 2;
     
     while (mask != 0)
     {
         temp = answer | mask;
         answer >>= 1;
-        if (input >= temp) 
+        if (regNumber >= temp) 
         {
-            input -= temp;
+            regNumber -= temp;
             answer |= mask;
         }
         mask >>= 2;
