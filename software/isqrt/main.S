@@ -5,9 +5,9 @@
 	.attribute stack_align, 16
 	.text
 	.align	2
-	.globl	_start
-	.type	_start, @function
-_start:
+	.globl	main
+	.type	main, @function
+main:
 	addi	sp,sp,-32
 	sw	ra,28(sp)
 	sw	s0,24(sp)
@@ -23,48 +23,45 @@ _start:
 	sw	a0,-20(s0)
 .L2:
 	j	.L2
-	.size	_start, .-_start
+	.size	main, .-main
 	.align	2
 	.globl	isqrt
 	.type	isqrt, @function
 isqrt:
 	addi	sp,sp,-48
 	sw	s0,44(sp)
+	sw	s1,40(sp)
+	sw	s2,36(sp)
+	sw	s3,32(sp)
+	sw	s4,28(sp)
 	addi	s0,sp,48
 	sw	a0,-36(s0)
-	li	a5,1073741824
-	sw	a5,-20(s0)
-	sw	zero,-24(s0)
+	lw	s3,-36(s0)
+	li	s1,1073741824
+	li	s2,0
 	j	.L4
-.L6:
-	lw	a4,-24(s0)
-	lw	a5,-20(s0)
-	or	a5,a4,a5
-	sw	a5,-28(s0)
-	lw	a5,-24(s0)
-	srli	a5,a5,1
-	sw	a5,-24(s0)
-	lw	a4,-36(s0)
-	lw	a5,-28(s0)
-	bltu	a4,a5,.L5
-	lw	a4,-36(s0)
-	lw	a5,-28(s0)
-	sub	a5,a4,a5
-	sw	a5,-36(s0)
-	lw	a4,-24(s0)
-	lw	a5,-20(s0)
-	or	a5,a4,a5
-	sw	a5,-24(s0)
 .L5:
-	lw	a5,-20(s0)
-	srli	a5,a5,2
-	sw	a5,-20(s0)
+	srli	s1,s1,2
 .L4:
-	lw	a5,-20(s0)
-	bne	a5,zero,.L6
-	lw	a5,-24(s0)
+	bgtu	s1,s3,.L5
+	j	.L6
+.L8:
+	or	s4,s2,s1
+	srli	s2,s2,1
+	bltu	s3,s4,.L7
+	sub	s3,s3,s4
+	or	s2,s2,s1
+.L7:
+	srli	s1,s1,2
+.L6:
+	bne	s1,zero,.L8
+	mv	a5,s2
 	mv	a0,a5
 	lw	s0,44(sp)
+	lw	s1,40(sp)
+	lw	s2,36(sp)
+	lw	s3,32(sp)
+	lw	s4,28(sp)
 	addi	sp,sp,48
 	jr	ra
 	.size	isqrt, .-isqrt
