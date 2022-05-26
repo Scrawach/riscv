@@ -84,15 +84,19 @@ module execute
   always @(*) begin
     src_b = rs2_data;
     case (alu_src1_e)
-      2'b00: src_b = rs2_data;
-      2'b01: src_b = immI_e;
-      2'b10: src_b = immS_e;
-      2'b11: src_b = immU_e;
+      `ALUSRC1_RS2  : src_b = rs2_data;
+      `ALUSRC1_IMMI : src_b = immI_e;
+      `ALUSRC1_IMMS : src_b = immS_e;
+      `ALUSRC1_IMMU : src_b = immU_e;
     endcase
   end
 
   always @(*) begin
-    src_a = alu_src2_e ? pc_e : rs1_data;
+    src_a = rs1_data;
+    case (alu_src2_e)
+      `ALUSRC2_RS1 : src_a = rs1_data;
+      `ALUSRC2_PC  : src_a = pc_e;
+    endcase
   end
   
   always @(*) begin
