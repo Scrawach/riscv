@@ -49,8 +49,6 @@
 `define CSR_RSI 3'b110
 `define CSR_RCI 3'b111
 
-`define CSR_IMM 3'b1??   
-
 // instruction opcode
 `define RVOP_LUI    7'b0110111
 `define RVOP_AUIPC  7'b0010111
