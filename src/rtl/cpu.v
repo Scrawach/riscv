@@ -25,8 +25,9 @@ module cpu
   wire                  branch_d;               // From decode of decode.v
   wire [31:0]           branch_next_addr_d;     // From decode of decode.v
   wire [31:0]           csr_data_e;             // From execute of execute.v
-  wire [2:0]            csr_op;                 // From decode of decode.v
-  wire                  csr_wr_en;              // From decode of decode.v
+  wire [31:0]           csr_data_m;             // From memory of memory.v
+  wire [2:0]            csr_op_d;               // From decode of decode.v
+  wire                  csr_wr_en_d;            // From decode of decode.v
   wire                  flush_d;                // From hazard of hazard.v
   wire                  flush_e;                // From hazard of hazard.v
   wire                  forwarding_rs1_d;       // From hazard of hazard.v
@@ -112,8 +113,8 @@ module cpu
                 .pc_d                   (pc_d[31:0]),
                 .rs1_data_d             (rs1_data_d[31:0]),
                 .rs2_data_d             (rs2_data_d[31:0]),
-                .csr_wr_en              (csr_wr_en),
-                .csr_op                 (csr_op[2:0]),
+                .csr_wr_en_d            (csr_wr_en_d),
+                .csr_op_d               (csr_op_d[2:0]),
                 .branch                 (branch),
                 // Inputs
                 .rst_n                  (rst_n),
@@ -181,6 +182,7 @@ module cpu
                 .pc_m                   (pc_m[31:0]),
                 .alu_res_m              (alu_res_m[31:0]),
                 .mem_read_data_m        (mem_read_data_m[31:0]),
+                .csr_data_m             (csr_data_m[31:0]),
                 .mem_write_data         (mem_write_data),
                 .mem_addr               (mem_addr),
                 .mem_write              (mem_write),
@@ -196,6 +198,7 @@ module cpu
                 .pc_e                   (pc_e[31:0]),
                 .alu_res_e              (alu_res_e[31:0]),
                 .mem_data_e             (mem_data_e[31:0]),
+                .csr_data_e             (csr_data_e[31:0]),
                 .mem_valid              (mem_valid),
                 .mem_read_data          (mem_read_data),
                 .stall_m                (stall_m));
@@ -213,7 +216,8 @@ module cpu
                       .rd_m             (rd_m[4:0]),
                       .pc_m             (pc_m[31:0]),
                       .alu_res_m        (alu_res_m[31:0]),
-                      .mem_read_data_m  (mem_read_data_m[31:0]));
+                      .mem_read_data_m  (mem_read_data_m[31:0]),
+                      .csr_data_m       (csr_data_m[31:0]));
   
   hazard hazard(/*AUTOINST*/
                 // Outputs

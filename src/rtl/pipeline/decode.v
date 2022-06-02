@@ -35,8 +35,8 @@ module decode
  output [31:0] pc_d,
  output [31:0] rs1_data_d,
  output [31:0] rs2_data_d,
- output        csr_wr_en,
- output [2:0]  csr_op,
+ output        csr_wr_en_d,
+ output [2:0]  csr_op_d,
  // hazard control unit:
  input         stall_d,
  input         flush_d,
@@ -96,6 +96,8 @@ module decode
          .fast_jump                     (fast_jump),             // Templated
          .branch                        (branch),                // Templated
          .branch_condition              (branch_condition_d[2:0]), // Templated
+         .csr_wr_en                     (csr_wr_en_d),           // Templated
+         .csr_op                        (csr_op_d[2:0]),         // Templated
          // Inputs
          .cmd_op                        (cmd_op_d[6:0]),         // Templated
          .func3                         (func3_d[2:0]),          // Templated

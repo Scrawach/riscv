@@ -164,8 +164,8 @@ module execute
       pc_e           <= 0;
       rs2_data_e     <= 0;
       rs1_data_e     <= 0;
-      csr_wr_en      <= 0;
-      csr_op         <= 0;
+      csr_wr_en_e    <= 0;
+      csr_op_e       <= 0;
     end else if (!stall_e) begin
       pc_write_e     <= pc_write_d;
       rd_write_e     <= rd_write_d;

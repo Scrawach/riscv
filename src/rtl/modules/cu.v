@@ -98,12 +98,12 @@ module cu
       { `RVF7_AND,  `RVF3_AND,   `RVOP_AND   } : begin rd_write = 1'b1; alu_op = `ALUOP_AND;  end
 
       // CSR:
-      { `RVF7_ANY, `RVF3_CSRRW, `RVOP_SYSTEM } : begin rd_write = 1'b1; csr_write_en = 1'b1; csr_op = `CSR_RW ; rd_write_src = `RDSRC_CSR; end
-      { `RVF7_ANY, `RVF3_CSRRS, `RVOP_SYSTEM } : begin rd_write = 1'b1; csr_write_en = 1'b1; csr_op = `CSR_RS ; rd_write_src = `RDSRC_CSR; end
-      { `RVF7_ANY, `RVF3_CSRRC, `RVOP_SYSTEM } : begin rd_write = 1'b1; csr_write_en = 1'b1; csr_op = `CSR_RC ; rd_write_src = `RDSRC_CSR; end
-      { `RVF7_ANY, `RVF3_CSRRWI,`RVOP_SYSTEM } : begin rd_write = 1'b1; csr_write_en = 1'b1; csr_op = `CSR_RWI; rd_write_src = `RDSRC_CSR; end
-      { `RVF7_ANY, `RVF3_CSRRSI,`RVOP_SYSTEM } : begin rd_write = 1'b1; csr_write_en = 1'b1; csr_op = `CSR_RSI; rd_write_src = `RDSRC_CSR; end
-      { `RVF7_ANY, `RVF3_CSRRCI,`RVOP_SYSTEM } : begin rd_write = 1'b1; csr_write_en = 1'b1; csr_op = `CSR_RCI; rd_write_src = `RDSRC_CSR; end
+      { `RVF7_ANY, `RVF3_CSRRW, `RVOP_SYSTEM } : begin rd_write = 1'b1; csr_wr_en = 1'b1; csr_op = `CSR_RW ; rd_write_src = `RDSRC_CSR; end
+      { `RVF7_ANY, `RVF3_CSRRS, `RVOP_SYSTEM } : begin rd_write = 1'b1; csr_wr_en = 1'b1; csr_op = `CSR_RS ; rd_write_src = `RDSRC_CSR; end
+      { `RVF7_ANY, `RVF3_CSRRC, `RVOP_SYSTEM } : begin rd_write = 1'b1; csr_wr_en = 1'b1; csr_op = `CSR_RC ; rd_write_src = `RDSRC_CSR; end
+      { `RVF7_ANY, `RVF3_CSRRWI,`RVOP_SYSTEM } : begin rd_write = 1'b1; csr_wr_en = 1'b1; csr_op = `CSR_RWI; rd_write_src = `RDSRC_CSR; end
+      { `RVF7_ANY, `RVF3_CSRRSI,`RVOP_SYSTEM } : begin rd_write = 1'b1; csr_wr_en = 1'b1; csr_op = `CSR_RSI; rd_write_src = `RDSRC_CSR; end
+      { `RVF7_ANY, `RVF3_CSRRCI,`RVOP_SYSTEM } : begin rd_write = 1'b1; csr_wr_en = 1'b1; csr_op = `CSR_RCI; rd_write_src = `RDSRC_CSR; end
     endcase // casez ( { func7, func3, cmd_op } )
   end
   
