@@ -38,6 +38,13 @@
 `define BRANCH_LESS_SIGN    3'b100
 `define BRANCH_GREATER_SIGN 3'b101
 
+// Control Status Register defines:
+`define CSR_NOP 3'b000
+`define CSR_RW  3'b001
+`define CSR_RS  3'b010
+`define CSR_RC  3'b011
+`define CSR_IMM 3'b1??   
+
 // instruction opcode
 `define RVOP_LUI    7'b0110111
 `define RVOP_AUIPC  7'b0010111
