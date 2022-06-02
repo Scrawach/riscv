@@ -22,8 +22,8 @@ module execute
  input [31:0]  pc_d,
  input [31:0]  rs1_data_d,
  input [31:0]  rs2_data_d,
- input         csr_wr_en,
- input [2:0]   csr_op,
+ input         csr_wr_en_d,
+ input [2:0]   csr_op_d,
  // to memory stage:
  output        pc_write_e,
  output        rd_write_e,
@@ -33,6 +33,7 @@ module execute
  output [31:0] pc_e,
  output [31:0] alu_res_e,
  output [31:0] mem_data_e,
+ output [31:0] csr_data_e,
  // from memory stage:
  input [31:0]  alu_res_m,
  // from writeback stage:
@@ -69,8 +70,8 @@ module execute
   reg [31:0]            rs2_data;
   reg [31:0]            src_a;
   reg [31:0]            src_b;
-  reg                   csr_wr_en;
-  reg                   csr_op;
+  reg                   csr_wr_en_e;
+  reg [2:0]             csr_op_e;
         
   /*alu AUTO_TEMPLATE(
    .result(alu_res_e),
@@ -86,20 +87,21 @@ module execute
            .op_code                     (alu_op_e));              // Templated
 
   /*csr AUTO_TEMPLATE(
+   .csr_data_out(csr_data_e[]),
    .csr_wr_en(csr_wr_en_e),
-   .csr_op(csr_op_e),
+   .csr_op(csr_op_e[]),
    .csr_uimm(rs1_e),
    .csr_addr(immI_e),
    .csr_data_in(rs1_data),
    );*/
   csr csr (/*AUTOINST*/
            // Outputs
-           .csr_data_out                (csr_data_out[31:0]),
+           .csr_data_out                (csr_data_e[31:0]),      // Templated
            // Inputs
            .rst_n                       (rst_n),
            .clk                         (clk),
            .csr_wr_en                   (csr_wr_en_e),           // Templated
-           .csr_op                      (csr_op_e),              // Templated
+           .csr_op                      (csr_op_e[2:0]),         // Templated
            .csr_uimm                    (rs1_e),                 // Templated
            .csr_addr                    (immI_e),                // Templated
            .csr_data_in                 (rs1_data));              // Templated
@@ -181,8 +183,8 @@ module execute
       pc_e           <= pc_d;
       rs2_data_e     <= rs2_data_d;
       rs1_data_e     <= rs1_data_d;
-      csr_wr_en_e    <= csr_wr_en;
-      csr_op_e       <= csr_op;
+      csr_wr_en_e    <= csr_wr_en_d;
+      csr_op_e       <= csr_op_d;
     end
   end
 

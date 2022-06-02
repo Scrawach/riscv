@@ -24,6 +24,7 @@ module cpu
   wire                  branch;                 // From decode of decode.v
   wire                  branch_d;               // From decode of decode.v
   wire [31:0]           branch_next_addr_d;     // From decode of decode.v
+  wire [31:0]           csr_data_e;             // From execute of execute.v
   wire [2:0]            csr_op;                 // From decode of decode.v
   wire                  csr_wr_en;              // From decode of decode.v
   wire                  flush_d;                // From hazard of hazard.v
@@ -139,6 +140,7 @@ module cpu
                   .pc_e                 (pc_e[31:0]),
                   .alu_res_e            (alu_res_e[31:0]),
                   .mem_data_e           (mem_data_e[31:0]),
+                  .csr_data_e           (csr_data_e[31:0]),
                   .rs1_e                (rs1_e[4:0]),
                   .rs2_e                (rs2_e[4:0]),
                   // Inputs
@@ -160,8 +162,8 @@ module cpu
                   .pc_d                 (pc_d[31:0]),
                   .rs1_data_d           (rs1_data_d[31:0]),
                   .rs2_data_d           (rs2_data_d[31:0]),
-                  .csr_wr_en            (csr_wr_en),
-                  .csr_op               (csr_op[2:0]),
+                  .csr_wr_en_d          (csr_wr_en_d),
+                  .csr_op_d             (csr_op_d[2:0]),
                   .alu_res_m            (alu_res_m[31:0]),
                   .rd_data_w            (rd_data_w[31:0]),
                   .stall_e              (stall_e),
