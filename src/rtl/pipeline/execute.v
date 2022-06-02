@@ -22,6 +22,8 @@ module execute
  input [31:0]  pc_d,
  input [31:0]  rs1_data_d,
  input [31:0]  rs2_data_d,
+ input         csr_wr_en,
+ input [2:0]   csr_op,
  // to memory stage:
  output        pc_write_e,
  output        rd_write_e,
@@ -67,7 +69,9 @@ module execute
   reg [31:0]            rs2_data;
   reg [31:0]            src_a;
   reg [31:0]            src_b;
-      
+  reg                   csr_wr_en;
+  reg                   csr_op;
+        
   /*alu AUTO_TEMPLATE(
    .result(alu_res_e),
    .op_code(alu_op_e),
@@ -78,8 +82,28 @@ module execute
            .result                      (alu_res_e),             // Templated
            // Inputs
            .src_a                       (src_a),
-           .src_b                       (src_b),              // Templated
+           .src_b                       (rs1_data),              // Templated
            .op_code                     (alu_op_e));              // Templated
+
+  /*csr AUTO_TEMPLATE(
+   .csr_wr_en(csr_wr_en_e),
+   .csr_op(csr_op_e),
+   .csr_uimm(rs1_e),
+   .csr_addr(immI_e),
+   .csr_data_in(rs1_data),
+   );*/
+  csr csr (/*AUTOINST*/
+           // Outputs
+           .csr_data_out                (csr_data_out[31:0]),
+           // Inputs
+           .rst_n                       (rst_n),
+           .clk                         (clk),
+           .csr_wr_en                   (csr_wr_en_e),           // Templated
+           .csr_op                      (csr_op_e),              // Templated
+           .csr_uimm                    (rs1_e),                 // Templated
+           .csr_addr                    (immI_e),                // Templated
+           .csr_data_in                 (rs1_data));              // Templated
+  
   
   always @(*) begin
     src_b = rs2_data;
@@ -138,6 +162,8 @@ module execute
       pc_e           <= 0;
       rs2_data_e     <= 0;
       rs1_data_e     <= 0;
+      csr_wr_en      <= 0;
+      csr_op         <= 0;
     end else if (!stall_e) begin
       pc_write_e     <= pc_write_d;
       rd_write_e     <= rd_write_d;
@@ -155,6 +181,8 @@ module execute
       pc_e           <= pc_d;
       rs2_data_e     <= rs2_data_d;
       rs1_data_e     <= rs1_data_d;
+      csr_wr_en_e    <= csr_wr_en;
+      csr_op_e       <= csr_op;
     end
   end
 
