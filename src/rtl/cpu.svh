@@ -29,6 +29,7 @@
 `define RDSRC_PC    2'b00
 `define RDSRC_ALU   2'b01
 `define RDSRC_MEM   2'b10
+`define RDSRC_CSR   2'b11
 
 // BRANCH
 `define BRANCH_EQ           3'b000
@@ -43,6 +44,11 @@
 `define CSR_RW  3'b001
 `define CSR_RS  3'b010
 `define CSR_RC  3'b011
+
+`define CSR_RWI 3'b101
+`define CSR_RSI 3'b110
+`define CSR_RCI 3'b111
+
 `define CSR_IMM 3'b1??   
 
 // instruction opcode
@@ -82,6 +88,8 @@
 `define RVOP_OR     7'b0110011
 `define RVOP_AND    7'b0110011
 
+`define RVOP_SYSTEM 7'b1110011
+
 // instruction funct3
 `define RVF3_ANY    3'b???
 `define RVF3_JALR   3'b000
@@ -116,6 +124,13 @@
 `define RVF3_SRA    3'b101
 `define RVF3_OR     3'b110
 `define RVF3_AND    3'b111
+
+`define RVF3_CSRRW  3'b001
+`define RVF3_CSRRS  3'b010
+`define RVF3_CSRRC  3'b011
+`define RVF3_CSRRWI 3'b101
+`define RVF3_CSRRSI 3'b110
+`define RVF3_CSRRCI 3'b111
 
 // instruction funct7
 `define RVF7_ANY    7'b???????
