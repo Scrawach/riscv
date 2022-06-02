@@ -12,6 +12,7 @@ module writeback
  input [31:0]  pc_m,
  input [31:0]  alu_res_m,
  input [31:0]  mem_read_data_m,
+ input [31:0]  csr_data_m,
  // to decode stage (write to register file):
  output        rd_write_w,
  output [4:0]  rd_w,
@@ -36,6 +37,7 @@ module writeback
       `RDSRC_PC  : rd_data_w = pc_w + 4;
       `RDSRC_ALU : rd_data_w = alu_res_w;
       `RDSRC_MEM : rd_data_w = mem_read_data_w;
+      `RDSRC_CSR : rd_data_w = csr_data_m;
       default    : rd_data_w = alu_res_w;
     endcase // case (rd_write_src_w)
   end

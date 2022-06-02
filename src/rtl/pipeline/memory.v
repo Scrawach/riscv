@@ -14,6 +14,7 @@ module memory
  input [31:0]  pc_e,
  input [31:0]  alu_res_e,
  input [31:0]  mem_data_e,
+ input [31:0]  csr_data_e,
  // to writeback stage:
  output        pc_write_m,
  output [31:0] pc_next_addr_m,
@@ -23,6 +24,7 @@ module memory
  output [31:0] pc_m,
  output [31:0] alu_res_m,
  output [31:0] mem_read_data_m,
+ output [31:0] csr_data_m,
  // to data memory:
  output [31:0] mem_write_data,
  output [31:0] mem_addr,
@@ -37,7 +39,7 @@ module memory
   /*AUTOREG*/
   // Beginning of automatic regs (for this module's undeclared outputs)
   reg [31:0]            alu_res_m;
-  reg [31:0]            mem_read_data_m;
+  reg [31:0]            csr_data_m;
   reg [31:0]            pc_m;
   reg                   pc_write_m;
   reg [4:0]             rd_m;
@@ -68,6 +70,7 @@ module memory
       pc_m           <= 0;
       alu_res_m      <= 0;
       mem_data_m     <= 0;
+      csr_data_m     <= 0;
     end else if (!stall_m) begin
       pc_write_m     <= pc_write_e;
       rd_write_m     <= rd_write_e;
@@ -77,6 +80,7 @@ module memory
       pc_m           <= pc_e;
       alu_res_m      <= alu_res_e;
       mem_data_m     <= mem_data_e;
+      csr_data_m     <= csr_data_e;
     end
   end // always @ (posedge clk or negedge rst_n)
   
