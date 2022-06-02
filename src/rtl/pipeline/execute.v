@@ -46,7 +46,8 @@ module execute
  output [4:0]  rs1_e,
  output [4:0]  rs2_e
  );
-  
+
+  /*AUTOWIRE*/
   /*AUTOREG*/
   // Beginning of automatic regs (for this module's undeclared outputs)
   reg [31:0]            pc_e;
@@ -76,23 +77,22 @@ module execute
   /*alu AUTO_TEMPLATE(
    .result(alu_res_e),
    .op_code(alu_op_e),
-   .src_b(rs1_data),
    );*/
   alu alu (/*AUTOINST*/
            // Outputs
            .result                      (alu_res_e),             // Templated
            // Inputs
            .src_a                       (src_a),
-           .src_b                       (rs1_data),              // Templated
+           .src_b                       (src_b),
            .op_code                     (alu_op_e));              // Templated
 
   /*csr AUTO_TEMPLATE(
    .csr_data_out(csr_data_e[]),
-   .csr_wr_en(csr_wr_en_e),
-   .csr_op(csr_op_e[]),
-   .csr_uimm(rs1_e),
-   .csr_addr(immI_e),
-   .csr_data_in(rs1_data),
+   .csr_wr_en(csr_wr_en_d),
+   .csr_op(csr_op_d[]),
+   .csr_uimm(rs1_d),
+   .csr_addr(immI_d),
+   .csr_data_in(rs1_data_d),
    );*/
   csr csr (/*AUTOINST*/
            // Outputs
@@ -100,11 +100,11 @@ module execute
            // Inputs
            .rst_n                       (rst_n),
            .clk                         (clk),
-           .csr_wr_en                   (csr_wr_en_e),           // Templated
-           .csr_op                      (csr_op_e[2:0]),         // Templated
-           .csr_uimm                    (rs1_e),                 // Templated
-           .csr_addr                    (immI_e),                // Templated
-           .csr_data_in                 (rs1_data));              // Templated
+           .csr_wr_en                   (csr_wr_en_d),           // Templated
+           .csr_op                      (csr_op_d[2:0]),         // Templated
+           .csr_uimm                    (rs1_d),                 // Templated
+           .csr_addr                    (immI_d),                // Templated
+           .csr_data_in                 (rs1_data_d));            // Templated
   
   
   always @(*) begin
