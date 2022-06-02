@@ -35,6 +35,8 @@ module decode
  output [31:0] pc_d,
  output [31:0] rs1_data_d,
  output [31:0] rs2_data_d,
+ output        csr_wr_en,
+ output [2:0]  csr_op,
  // hazard control unit:
  input         stall_d,
  input         flush_d,
