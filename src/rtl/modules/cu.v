@@ -15,7 +15,9 @@ module cu
  output       alu_src2,
  output       fast_jump,
  output       branch,
- output [2:0] branch_condition
+ output [2:0] branch_condition,
+ output       csr_wr_en,
+ output [2:0] csr_op
  );
 
   /*AUTOREG*/
@@ -25,6 +27,8 @@ module cu
   reg                   alu_src2;
   reg                   branch;
   reg [2:0]             branch_condition;
+  reg [2:0]             csr_op;
+  reg                   csr_wr_en;
   reg                   fast_jump;
   reg                   mem_write;
   reg                   pc_write;
@@ -44,7 +48,9 @@ module cu
     fast_jump        = 1'b0;
     alu_src1         = 2'b00;
     alu_src2         = 1'b0;
-
+    csr_wr_en        = 1'b0;
+    csr_op           = `CSR_NOP;
+    
     casez ( { func7, func3, cmd_op } )
       // U-Type:
       { `RVF7_ANY,  `RVF3_ANY,  `RVOP_LUI  } : begin rd_write = 1'b1; alu_op = `ALUOP_SRC1; alu_src1 = `ALUSRC1_IMMU; end
@@ -90,6 +96,14 @@ module cu
       { `RVF7_SRA,  `RVF3_SRA,   `RVOP_SRA   } : begin rd_write = 1'b1; alu_op = `ALUOP_SRA;  end
       { `RVF7_OR,   `RVF3_OR,    `RVOP_OR    } : begin rd_write = 1'b1; alu_op = `ALUOP_OR;   end
       { `RVF7_AND,  `RVF3_AND,   `RVOP_AND   } : begin rd_write = 1'b1; alu_op = `ALUOP_AND;  end
+
+      // CSR:
+      { `RVF7_ANY, `RVF3_CSRRW, `RVOP_SYSTEM } : begin rd_write = 1'b1; csr_write_en = 1'b1; csr_op = `CSR_RW ; rd_write_src = `RDSRC_CSR; end
+      { `RVF7_ANY, `RVF3_CSRRS, `RVOP_SYSTEM } : begin rd_write = 1'b1; csr_write_en = 1'b1; csr_op = `CSR_RS ; rd_write_src = `RDSRC_CSR; end
+      { `RVF7_ANY, `RVF3_CSRRC, `RVOP_SYSTEM } : begin rd_write = 1'b1; csr_write_en = 1'b1; csr_op = `CSR_RC ; rd_write_src = `RDSRC_CSR; end
+      { `RVF7_ANY, `RVF3_CSRRWI,`RVOP_SYSTEM } : begin rd_write = 1'b1; csr_write_en = 1'b1; csr_op = `CSR_RWI; rd_write_src = `RDSRC_CSR; end
+      { `RVF7_ANY, `RVF3_CSRRSI,`RVOP_SYSTEM } : begin rd_write = 1'b1; csr_write_en = 1'b1; csr_op = `CSR_RSI; rd_write_src = `RDSRC_CSR; end
+      { `RVF7_ANY, `RVF3_CSRRCI,`RVOP_SYSTEM } : begin rd_write = 1'b1; csr_write_en = 1'b1; csr_op = `CSR_RCI; rd_write_src = `RDSRC_CSR; end
     endcase // casez ( { func7, func3, cmd_op } )
   end
   
