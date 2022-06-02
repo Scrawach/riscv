@@ -33,11 +33,15 @@ module csr
     endcase
   end
 
-  always @ (*) begin
-    case (csr_addr)
-      12'd777  : csr_data_out = debug;
-      default  : csr_data_out = 32'h0;
-    endcase
+  always @ ( posedge clk or negedge rst_n ) begin
+    if ( !rst_n ) begin
+      csr_data_out <= 32'h0;
+    end else begin
+      case (csr_addr)
+        12'd777  : csr_data_out = debug;
+        default  : csr_data_out = 32'h0;
+      endcase // case (csr_addr)
+    end
   end
 
   always @ ( posedge clk or negedge rst_n ) begin
